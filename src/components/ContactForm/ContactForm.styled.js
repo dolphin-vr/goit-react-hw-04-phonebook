@@ -23,5 +23,5 @@ export const StyledField = styled(Field)`
 
 export const ErrorMsg = styled(ErrorMessage)`
   font-size: 13px;
-  color: red;
+  color: ${({ theme }) => theme.colors.red};
 `;

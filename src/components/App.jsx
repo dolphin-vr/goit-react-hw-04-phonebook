@@ -1,5 +1,5 @@
 import { nanoid } from 'nanoid';
-import { Notify } from 'notiflix';
+import toast, { Toaster } from 'react-hot-toast';
 import { useEffect, useState } from 'react';
 import { GlobalStyle } from "./GlobalStyle";
 import { Layout, Title } from "./Layout";
@@ -8,10 +8,14 @@ import { ContactList } from './ContactList/ContactList';
 import { Filter } from './Filter/Filter';
 import { MdOutlineContactPhone } from "react-icons/md";
 
-const optNotiflx = {
+const toastOptions  = {
   position: 'center-top',
-  timeout: 5000,
-  fontSize: '18px',
+  duration: 5000,
+  style: {
+    width: '100%',
+    fontSize: '22px',
+    background: '#f7ba60',
+  },  
 };
 
 const getSavedContacts =()=>{
@@ -34,7 +38,7 @@ export const App = () => {
 
   const addContact = contact => {
     if (isInList(contact)) {
-      Notify.warning(`${contact.name} is already in contacts`, optNotiflx)
+      toast(`${contact.name} is already in contacts`, toastOptions );
     } else{
       setContacts(prevContact =>([...prevContact, {id: nanoid(), ...contact}]))
     }
@@ -56,6 +60,7 @@ export const App = () => {
         <Filter filter={filter} onChangeFilter={handleFilter} />
         <ContactList contacts={filteredContacts} onClick={deleteContact}/>
         <GlobalStyle />
+        <Toaster />
       </Layout>
     );
 }
